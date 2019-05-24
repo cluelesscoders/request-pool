@@ -1,0 +1,33 @@
+{
+  "name": "@cluelesscoders/request-pool",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "version": "0.1.0",
+  "description": "Create request pool queue for all types of http request",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cluelesscoders/request-pool"
+  },
+  "author": "Engit Prabhat",
+  "license": "MIT",
+  "scripts": {
+    "lint": "tslint -p tsconfig.json 'src/**/*.ts'",
+    "build": "npm run build-ts",
+    "test": "jest -c jest.unit.config.js --coverage --verbose",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w"
+  },
+  "dependencies": {
+    "axios": "^0.18.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.11",
+    "@types/node": "^11.11.5",
+    "@types/supertest": "^2.0.7",
+    "@types/winston": "^2.4.4",
+    "jest": "^24.5.0",
+    "ts-jest": "^24.0.0",
+    "ts-node": "^8.0.3",
+    "typescript": "^3.3.4000"
+  }
+}
