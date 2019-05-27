@@ -2,7 +2,7 @@
   "name": "@cluelesscoders/request-pool",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Create request pool queue for all types of http request",
   "repository": {
     "type": "git",
