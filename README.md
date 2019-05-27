@@ -10,7 +10,7 @@ Creates a pool of request.
 ## Example
 
 ```js
-import RequestPool from '@cluelesscoders/request-pool';
+import { RequestPool } from '@cluelesscoders/request-pool';
 
 const targets = [
     { url: 'http://testurl1/', method: 'GET' },
