@@ -1,4 +1,4 @@
-import { RequestPool, Target } from '../src/request-pool-util';
+import { RequestPool, Target } from '../src';
 import axiosMock from '../__mocks__/axios';
 
 jest.mock('axios');

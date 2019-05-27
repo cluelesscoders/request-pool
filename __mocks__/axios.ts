@@ -9,7 +9,7 @@ class FakeError extends Error {
 
 let callCount: number = 0;
 const axiosMock = {
-  request: jest.fn(),
+  request: jest.fn().mockResolvedValue('Fake 200 Response'),
   rejects: () => {
     axiosMock.request.mockRejectedValue(new FakeError({ data: 'Fake' }));
   },
@@ -25,7 +25,9 @@ const axiosMock = {
   reset: () => {
     callCount = 0;
     axiosMock.request.mockReset();
+    axiosMock.request.mockResolvedValue('Fake 200 Response');
   },
 };
 
 export default axiosMock;
+

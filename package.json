@@ -13,7 +13,7 @@
   "scripts": {
     "lint": "tslint -p tsconfig.json 'src/**/*.ts'",
     "build": "npm run build-ts",
-    "test": "jest -c jest.unit.config.js --coverage --verbose",
+    "test": "jest -c jest.config.js --coverage --verbose",
     "build-ts": "tsc",
     "watch-ts": "tsc -w"
   },
