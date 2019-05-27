@@ -11,12 +11,11 @@
   "author": "Engit Prabhat",
   "license": "MIT",
   "scripts": {
-    "lint": "tslint -p tsconfig.json 'src/**/*.ts'",
-    "build": "npm run build-ts",
+    "lint": "tslint -p tsconfig.json",
+    "build": "npm run lint && npm run build-ts",
     "test": "jest -c jest.config.js --coverage --verbose",
     "build-ts": "tsc",
-    "watch-ts": "tsc -w",
-    "publish": "npm run build && npm publish"
+    "watch": "tsc -w"
   },
   "dependencies": {
     "axios": "^0.18.0"
@@ -27,8 +26,13 @@
     "@types/supertest": "^2.0.7",
     "@types/winston": "^2.4.4",
     "jest": "^24.5.0",
+    "prettier": "^1.17.1",
     "ts-jest": "^24.0.0",
     "ts-node": "^8.0.3",
+    "tslint": "^5.16.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
     "typescript": "^3.3.4000"
   }
 }
