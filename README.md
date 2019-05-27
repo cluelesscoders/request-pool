@@ -17,7 +17,11 @@ const targets = [
     { url: 'http://testurl2/', method: 'GET' },
     { url: 'http://testurl3/', method: 'POST', data: { test: 'data' } },
 ];
-const reqPool = new RequestPool(targets, 2);
+
+// limit two request at a time
+const poolSize = 2;
+
+const reqPool = new RequestPool(targets, poolSize);
 
 // Get all responses including the failures
 const responses = await reqPool.start();
