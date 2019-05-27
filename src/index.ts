@@ -1,8 +1,13 @@
 import axios from 'axios';
 
-interface ITarget {
+interface Target {
   readonly url: string;
   readonly method: string;
+}
+
+interface TruePromise {
+  readonly resolve: any;
+  readonly reject: any;
 }
 
 interface Request {
@@ -29,11 +34,11 @@ class Response {
 class RequestPool {
   responses: any[];
   total: number;
-  targets: ITarget[];
+  targets: Target[];
   poolSize: number;
   defaults: object = {};
 
-  constructor(targets: ITarget[], poolSize: number) {
+  constructor(targets: Target[], poolSize: number) {
     this.responses = [];
     this.total = targets.length;
     this.targets = [...targets];
@@ -47,23 +52,13 @@ class RequestPool {
   /**
    * make requests and store responses
    * @param truth
-   * @param response
    */
-  async processTask(truth: any, response: any = null) {
-    if (response !== null) {
-      this.responses.push(response);
-    }
-
-    if (this.responses.length === this.total) {
-      return truth.resolve(this.responses);
-    }
-
-    const target: ITarget | undefined = this.targets.shift();
+  async processTask(truth: TruePromise): Promise<any> {
+    const target: Target | undefined = this.targets.shift();
     if (!target) {
       return;
     }
 
-    // make request
     const { url, method }: any = target;
     const options = {
       url,
@@ -71,14 +66,17 @@ class RequestPool {
       ...this.defaults,
     };
     const startTime = Date.now();
-    try {
-      const resp = await axios.request(options);
-      const duration = RequestPool.prettyTime(Date.now() - startTime);
-      this.processTask(truth, new Response(options, resp, duration));
-    } catch (e) {
-      const duration = RequestPool.prettyTime(Date.now() - startTime);
-      this.processTask(truth, new Response(options, e, duration));
+    // make request and catch errors also
+    const resp = await axios.request(options).catch(e => e);
+    const duration = RequestPool.prettyTime(Date.now() - startTime);
+
+    // Add responses/errors and resolve promise chain when all fulfilled
+    this.responses.push(new Response(options, resp, duration));
+    if (this.responses.length === this.total) {
+      return truth.resolve(this.responses);
     }
+
+    return this.processTask(truth);
   }
 
   /**
@@ -87,7 +85,7 @@ class RequestPool {
    */
   start(): Promise<Response[]> {
     return new Promise((resolve, reject) => {
-      const truth = { resolve, reject };
+      const truth: TruePromise = { resolve, reject };
 
       if (!this.targets || this.targets.length === 0) {
         return reject(new Error('no targets found'));
@@ -113,4 +111,4 @@ class RequestPool {
   }
 }
 
-export { RequestPool, Response, Request, ITarget };
+export { RequestPool, Response, Request, Target };
