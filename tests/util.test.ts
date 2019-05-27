@@ -1,10 +1,10 @@
-import { RequestPool, ITarget } from '../src/request-pool-util';
+import { RequestPool, Target } from '../src/request-pool-util';
 import axiosMock from '../__mocks__/axios';
 
 jest.mock('axios');
 
 describe('Request Pool', () => {
-  const targets: ITarget[] = [
+  const targets: Target[] = [
     { url: 'http://testurl1/', method: 'BAN' },
     { url: 'http://testurl2/', method: 'BAN' },
     { url: 'http://testurl3/', method: 'REFRESH' },
@@ -51,7 +51,7 @@ describe('Request Pool', () => {
   });
 
   it('when few requests fail', async () => {
-    // move odd requests fail
+    // make odd requests fail
     const fn = (n: number) => n % 2 === 0;
     axiosMock.resolveWhen(fn);
 
