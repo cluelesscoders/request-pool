@@ -59,10 +59,8 @@ class RequestPool {
       return;
     }
 
-    const { url, method }: any = target;
     const options = {
-      url,
-      method,
+      ...target,
       ...this.defaults,
     };
     const startTime = Date.now();
