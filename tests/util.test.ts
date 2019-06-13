@@ -5,10 +5,10 @@ jest.mock('axios');
 
 describe('Request Pool', () => {
   const targets: Target[] = [
-    { url: 'http://testurl1/', method: 'BAN' },
-    { url: 'http://testurl2/', method: 'BAN' },
-    { url: 'http://testurl3/', method: 'REFRESH' },
-    { url: 'http://testurl4/', method: 'REFRESH' },
+    { url: 'http://testurl1/', method: 'POST' },
+    { url: 'http://testurl2/', method: 'DELETE' },
+    { url: 'http://testurl3/', method: 'PUT' },
+    { url: 'http://testurl4/', method: 'GET' },
   ];
 
   beforeEach(() => axiosMock.reset());
