@@ -2,7 +2,22 @@ import axios from 'axios';
 
 interface Target {
   readonly url: string;
-  readonly method: string;
+  readonly method:
+    | 'head'
+    | 'get'
+    | 'GET'
+    | 'delete'
+    | 'DELETE'
+    | 'HEAD'
+    | 'options'
+    | 'OPTIONS'
+    | 'post'
+    | 'POST'
+    | 'put'
+    | 'PUT'
+    | 'patch'
+    | 'PATCH'
+    | undefined;
 }
 
 interface TruePromise {
@@ -12,7 +27,7 @@ interface TruePromise {
 
 interface Request {
   readonly url: string;
-  readonly method: string;
+  readonly method: string | undefined;
   readonly data?: object;
   readonly headers?: object;
 }
@@ -65,7 +80,7 @@ class RequestPool {
     };
     const startTime = Date.now();
     // make request and catch errors also
-    const resp = await axios.request(options).catch(e => e);
+    const resp = await axios.request(options).catch((e: any) => e);
     const duration = RequestPool.prettyTime(Date.now() - startTime);
 
     // Add responses/errors and resolve promise chain when all fulfilled
